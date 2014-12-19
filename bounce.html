@@ -1,0 +1,79 @@
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 10px;
+        padding: 0px;
+      }
+	  h3{color: blue;}
+	  #canvas {
+	display: block;
+	border: 2.5px solid red;
+	margin: 30px auto;
+}
+    </style>
+  </head>
+  <body>
+  <center><p><h3><u>Bouncing Ball</u></h3></p></center>
+    <canvas id="canvas"></canvas>
+	<script>
+	var canvas = document.getElementById("canvas"),
+		ctx = canvas.getContext("2d");
+		var W = 350,
+		H = 500;
+
+
+canvas.height = H; canvas.width = W;
+
+var ball = {},//Creating ball object
+		mass=10;
+		gravity = 0.2,
+		bounce = 0.7;//
+
+ball = {
+	x: W/2,
+	y: 50,
+	
+	radius: 15,
+	color: "red",
+	
+	vx: 0,
+	vy: 1,
+	
+	draw: function() {
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, true);
+		ctx.fillStyle = this.color;
+		ctx.fill();
+		ctx.closePath();
+	}
+	
+};
+
+function clearCanvas() {
+	ctx.clearRect(0, 0, W, H);
+}
+
+function update() {
+	clearCanvas();
+	ball.draw();
+	
+	ball.y += ball.vy;
+	ball.vy += gravity;
+
+	if(ball.y + ball.radius > H) {
+
+		ball.y = H - ball.radius;
+		ball.vy *= -bounce;
+		return ball.vx *= -bounce;
+
+	}
+}
+setInterval(update, 1000/60);
+setInterval(update, 0);
+
+	</script>
+  </body>
+</html>
